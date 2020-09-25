@@ -1,6 +1,37 @@
-1. 使用rsyslog，将系统日志集成到一个文件
+使用rsyslog，将系统日志集成到一个文件
 yum -y install rsyslog
 
 vim /etc/rsyslog.conf
 添加一行：
 *.*   /var/log/system-all.log
+
+[root@web01 ~]# cat /etc/filebeat/filebeat.yml
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /var/log/oldxu.log
+  include_lines: ["^ERR","^WARN","sshd"]
+
+output.elasticsearch:
+  hosts: ["172.16.0.67:9200","172.16.0.68:9200","172.16.0.69:9200"]
+  index: "system-%{[agent.version]}-%{+yyyy.MM.dd}"
+
+setup.ilm.enabled: false
+setup.template.name: system #索引关联的模板名称
+setup.template.pattern: system-*
+
+#设定system模板的分片数和副本数
+setup.template.settings:
+  index.number_of_shards: 3 #分片
+  index.number_of_replicas: 1 #副本
+  
+#设定system模板的分片数和副本数，还可以
+1.修改system模板 ---> 添加 shards 分片数数 量,replicas的数量
+   "number_of_routing_shards": "30",
+   "number_of_shards": "10",
+   "number_of_replicas": "1",
+2.删除模板关联的索引 
+3.删除filebeat自行指定的分片数和副本数 
+4.重启filebeat
+5.产生新的日志
