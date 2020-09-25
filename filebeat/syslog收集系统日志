@@ -1,0 +1,6 @@
+1. 使用rsyslog，将系统日志集成到一个文件
+yum -y install rsyslog
+
+vim /etc/rsyslog.conf
+添加一行：
+*.*   /var/log/system-all.log
