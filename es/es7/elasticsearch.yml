@@ -1,4 +1,4 @@
-cluster.name: escluster
+cluster.name: es-cluster1
 node.name: node-1
 path.data: /data/elasticsearch/data
 path.logs: /data/elasticsearch/logs
@@ -7,10 +7,11 @@ bootstrap.system_call_filter: false
 network.host: 0.0.0.0
 http.port: 9200
 transport.tcp.port: 9300
-discovery.zen.ping.unicast.hosts: ["192.171.3.24","192.171.3.25","192.171.3.26"]
+discovery.zen.ping.unicast.hosts: ["192.168.0.1","192.168.0.2","192.168.0.3"]
 discovery.zen.minimum_master_nodes: 2
 gateway.recover_after_nodes: 2
 cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]
+
 node.attr.tag: cold
 cluster.routing.allocation.same_shard.host: true
 cluster.max_shards_per_node: 10000
