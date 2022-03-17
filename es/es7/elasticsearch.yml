@@ -7,7 +7,7 @@ bootstrap.system_call_filter: false
 network.host: 0.0.0.0
 http.port: 9200
 transport.tcp.port: 9300
-discovery.zen.ping.unicast.hosts: ["192.168.0.1","192.168.0.2","192.168.0.3"]
+discovery.zen.ping.unicast.hosts: ["192.168.1.1","192.168.1.2","192.168.1.3"]
 discovery.zen.minimum_master_nodes: 2
 gateway.recover_after_nodes: 2
 cluster.initial_master_nodes: ["node-1", "node-2", "node-3"]
